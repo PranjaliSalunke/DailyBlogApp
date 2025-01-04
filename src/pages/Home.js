@@ -237,6 +237,7 @@ const Home = () => {
                         {comment.text}
                       </p>
                       {/* Delete button for each comment */}
+
                       <text
                         className="delete-comment-button"
                         onClick={() => handleDeleteComment(index, i)}
@@ -250,8 +251,8 @@ const Home = () => {
                   type="text"
                   value={commenterName}
                   onChange={handleNameChange}
-                  placeholder="Your Name"
-                  className="commenter-name"
+                  placeholder="Your name"
+                  className="commenter-name-input"
                 />
                 <textarea
                   value={newComment}

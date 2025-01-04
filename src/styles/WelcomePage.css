@@ -1,12 +1,16 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+  font-family: 'Poppins', sans-serif;
+  background: url('../assets/BgImage.jpg') no-repeat center center fixed; 
+  background-size: cover; 
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px 0;
+  position: relative;
+  overflow-x: hidden;
+}
   
   .welcome-container {
     background-color: white;
