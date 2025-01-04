@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "../styles/Home.css";
 
 const Home = () => {
   const { role } = useLocation().state;
+
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedPost, setExpandedPost] = useState(null);
   const [comments, setComments] = useState({});
@@ -18,34 +19,38 @@ const Home = () => {
     content: "",
   });
 
-  const [posts, setPosts] = useState([]);
-
-  // Fetch saved posts and comments on initial load
-  useEffect(() => {
-    const savedPosts = JSON.parse(localStorage.getItem("posts"));
-    const savedComments = JSON.parse(localStorage.getItem("comments"));
-
-    if (savedPosts) {
-      setPosts(savedPosts);
-    }
-
-    if (savedComments) {
-      setComments(savedComments);
-    }
-  }, []);
-
-  // Save posts and comments to localStorage whenever they change
-  useEffect(() => {
-    if (posts.length > 0) {
-      localStorage.setItem("posts", JSON.stringify(posts));
-    }
-  }, [posts]);
-
-  useEffect(() => {
-    if (Object.keys(comments).length > 0) {
-      localStorage.setItem("comments", JSON.stringify(comments));
-    }
-  }, [comments]);
+  const [posts, setPosts] = useState([
+    {
+      postName: "Introduction to React",
+      postAuthor: "John Doe",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...",
+    },
+    {
+      postName: "Understanding JavaScript Closures",
+      postAuthor: "Jane Smith",
+      content:
+        "Closures enable functions to remember their environment. They're a powerful feature for encapsulating and managing state in JavaScript.",
+    },
+    {
+      postName: "Guide to Node.js and Express",
+      postAuthor: "Alice Johnson",
+      content:
+        "Node.js is a runtime for executing JavaScript on the server. Express.js is a framework that simplifies building web applications on Node.",
+    },
+    {
+      postName: "Guide to Java ",
+      postAuthor: "James Gosling",
+      content:
+        "Java is a versatile programming language. SpringBoot simplifies backend development with powerful features and configurations.",
+    },
+    {
+      postName: "Guide to SpringBoot",
+      postAuthor: "James Gosling",
+      content:
+        "SpringBoot is a versatile programming language. SpringBoot simplifies backend development with powerful features and configurations.",
+    },
+  ]);
 
   const handleSearch = (e) => setSearchTerm(e.target.value);
 
@@ -232,12 +237,13 @@ const Home = () => {
                         {comment.text}
                       </p>
                       {/* Delete button for each comment */}
-                      <span
+
+                      <text
                         className="delete-comment-button"
                         onClick={() => handleDeleteComment(index, i)}
                       >
                         Delete
-                      </span>
+                      </text>
                     </div>
                   ))}
                 </div>
