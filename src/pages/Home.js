@@ -9,7 +9,6 @@ const Home = () => {
   const [expandedPost, setExpandedPost] = useState(null);
   const [comments, setComments] = useState({});
   const [newComment, setNewComment] = useState("");
-  const [commenterName, setCommenterName] = useState("");
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
@@ -59,10 +58,12 @@ const Home = () => {
 
   const handleCommentChange = (e) => setNewComment(e.target.value);
 
-  const handleNameChange = (e) => setCommenterName(e.target.value);
-
   const handleCommentSubmit = (postIndex) => {
-    if (newComment.trim() && commenterName.trim()) {
+    const commenterName = JSON.parse(
+      localStorage.getItem("userData")
+    )?.username;
+
+    if (newComment.trim() && commenterName) {
       setComments((prev) => ({
         ...prev,
         [postIndex]: [
@@ -71,9 +72,8 @@ const Home = () => {
         ],
       }));
       setNewComment("");
-      setCommenterName("");
     } else {
-      alert("Please fill in both name and comment!");
+      alert("Please fill in both comment and ensure you're logged in!");
     }
   };
 
@@ -236,8 +236,6 @@ const Home = () => {
                         <strong>{comment.user}: </strong>
                         {comment.text}
                       </p>
-                      {/* Delete button for each comment */}
-
                       <text
                         className="delete-comment-button"
                         onClick={() => handleDeleteComment(index, i)}
@@ -247,13 +245,6 @@ const Home = () => {
                     </div>
                   ))}
                 </div>
-                <input
-                  type="text"
-                  value={commenterName}
-                  onChange={handleNameChange}
-                  placeholder="Your name"
-                  className="commenter-name-input"
-                />
                 <textarea
                   value={newComment}
                   onChange={handleCommentChange}

@@ -12,7 +12,7 @@ const WelcomePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ name, username, role });
-
+    localStorage.setItem("userData", JSON.stringify({ name, username, role }));
     setIsSubmitted(true);
 
     setTimeout(() => {
@@ -22,7 +22,7 @@ const WelcomePage = () => {
 
   return (
     <div className="welcome-container">
-      <h1>Welcome to the Blog App</h1>
+      <h1>Welcome to the Daily Blog App</h1>
 
       {isSubmitted ? (
         <h2>Hey {name}, welcome to the world of blogs!</h2>
