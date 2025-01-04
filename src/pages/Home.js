@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../styles/Home.css";
 
@@ -7,7 +7,6 @@ const Home = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedPost, setExpandedPost] = useState(null);
-  const [comments, setComments] = useState({});
   const [newComment, setNewComment] = useState("");
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -18,38 +17,30 @@ const Home = () => {
     content: "",
   });
 
-  const [posts, setPosts] = useState([
-    {
-      postName: "Introduction to React",
-      postAuthor: "John Doe",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...",
-    },
-    {
-      postName: "Understanding JavaScript Closures",
-      postAuthor: "Jane Smith",
-      content:
-        "Closures enable functions to remember their environment. They're a powerful feature for encapsulating and managing state in JavaScript.",
-    },
-    {
-      postName: "Guide to Node.js and Express",
-      postAuthor: "Alice Johnson",
-      content:
-        "Node.js is a runtime for executing JavaScript on the server. Express.js is a framework that simplifies building web applications on Node.",
-    },
-    {
-      postName: "Guide to Java ",
-      postAuthor: "James Gosling",
-      content:
-        "Java is a versatile programming language. SpringBoot simplifies backend development with powerful features and configurations.",
-    },
-    {
-      postName: "Guide to SpringBoot",
-      postAuthor: "James Gosling",
-      content:
-        "SpringBoot is a versatile programming language. SpringBoot simplifies backend development with powerful features and configurations.",
-    },
-  ]);
+  // Get posts and comments from localStorage or set default if not available
+  const getPostsFromLocalStorage = () => {
+    const savedPosts = localStorage.getItem("posts");
+    return savedPosts ? JSON.parse(savedPosts) : [];
+  };
+
+  const getCommentsFromLocalStorage = () => {
+    const savedComments = localStorage.getItem("comments");
+    return savedComments ? JSON.parse(savedComments) : {};
+  };
+
+  const [posts, setPosts] = useState(getPostsFromLocalStorage);
+  const [commentsState, setCommentsState] = useState(
+    getCommentsFromLocalStorage
+  );
+
+  // Save posts and comments to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("posts", JSON.stringify(posts));
+  }, [posts]);
+
+  useEffect(() => {
+    localStorage.setItem("comments", JSON.stringify(commentsState));
+  }, [commentsState]);
 
   const handleSearch = (e) => setSearchTerm(e.target.value);
 
@@ -64,7 +55,7 @@ const Home = () => {
     )?.username;
 
     if (newComment.trim() && commenterName) {
-      setComments((prev) => ({
+      setCommentsState((prev) => ({
         ...prev,
         [postIndex]: [
           ...(prev[postIndex] || []),
@@ -121,7 +112,7 @@ const Home = () => {
 
   const handleDeleteComment = (postIndex, commentIndex) => {
     if (window.confirm("Are you sure you want to delete this comment?")) {
-      setComments((prev) => {
+      setCommentsState((prev) => {
         const updatedComments = { ...prev };
         updatedComments[postIndex].splice(commentIndex, 1);
         return updatedComments;
@@ -230,18 +221,18 @@ const Home = () => {
               {/* Comment Section */}
               <div className="comment-section">
                 <div className="comments-list">
-                  {(comments[index] || []).map((comment, i) => (
+                  {(commentsState[index] || []).map((comment, i) => (
                     <div key={i} className="comment">
                       <p>
                         <strong>{comment.user}: </strong>
                         {comment.text}
                       </p>
-                      <text
+                      <span
                         className="delete-comment-button"
                         onClick={() => handleDeleteComment(index, i)}
                       >
                         Delete
-                      </text>
+                      </span>
                     </div>
                   ))}
                 </div>
