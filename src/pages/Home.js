@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom"; // Import useLocation hook
+import { useLocation } from "react-router-dom";
 import "../styles/Home.css";
 
 const Home = () => {
-  const { role } = useLocation().state; // Use useLocation to access location state
+  const { role } = useLocation().state;
 
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedPost, setExpandedPost] = useState(null);
   const [comments, setComments] = useState({});
   const [newComment, setNewComment] = useState("");
-  const [commenterName, setCommenterName] = useState(""); // State for the name of the commenter
+  const [commenterName, setCommenterName] = useState("");
   const [showCreatePost, setShowCreatePost] = useState(false);
-  const [editMode, setEditMode] = useState(false); // To handle edit mode
-  const [editIndex, setEditIndex] = useState(null); // Index of the post being edited
+  const [editMode, setEditMode] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
   const [newPost, setNewPost] = useState({
     postName: "",
     postAuthor: "",
@@ -52,20 +52,15 @@ const Home = () => {
     },
   ]);
 
-  // Handle search input change
   const handleSearch = (e) => setSearchTerm(e.target.value);
 
-  // Toggle expand/collapse post content
   const toggleExpand = (index) =>
     setExpandedPost(expandedPost === index ? null : index);
 
-  // Handle new comment input change
   const handleCommentChange = (e) => setNewComment(e.target.value);
 
-  // Handle commenter name input change
   const handleNameChange = (e) => setCommenterName(e.target.value);
 
-  // Submit a new comment with the user's name
   const handleCommentSubmit = (postIndex) => {
     if (newComment.trim() && commenterName.trim()) {
       setComments((prev) => ({
@@ -76,37 +71,32 @@ const Home = () => {
         ],
       }));
       setNewComment("");
-      setCommenterName(""); // Reset the commenter name after submitting
+      setCommenterName("");
     } else {
       alert("Please fill in both name and comment!");
     }
   };
 
-  // Show post creation modal
   const handleCreatePostClick = () => {
     setShowCreatePost(true);
-    setEditMode(false); // Reset edit mode when creating a new post
+    setEditMode(false);
     setNewPost({ postName: "", postAuthor: "", content: "" });
   };
 
-  // Handle changes in the create post form
   const handlePostChange = (e) => {
     const { name, value } = e.target;
     setNewPost((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Submit a new or edited post
   const handleCreatePostSubmit = () => {
     if (newPost.postName && newPost.postAuthor && newPost.content) {
       if (editMode) {
-        // If editing, update the existing post
         setPosts((prev) =>
           prev.map((post, index) =>
             index === editIndex ? { ...newPost } : post
           )
         );
       } else {
-        // Otherwise, add a new post
         setPosts((prev) => [newPost, ...prev]);
       }
       setShowCreatePost(false);
@@ -117,13 +107,11 @@ const Home = () => {
     }
   };
 
-  // Delete a post
   const handleDeletePost = (index) => {
     const updatedPosts = posts.filter((_, i) => i !== index);
     setPosts(updatedPosts);
   };
 
-  // Edit a post
   const handleEditPost = (index) => {
     setEditMode(true);
     setEditIndex(index);
@@ -131,12 +119,11 @@ const Home = () => {
     setShowCreatePost(true);
   };
 
-  // Handle deleting a comment
   const handleDeleteComment = (postIndex, commentIndex) => {
     if (window.confirm("Are you sure you want to delete this comment?")) {
       setComments((prev) => {
         const updatedComments = { ...prev };
-        updatedComments[postIndex].splice(commentIndex, 1); // Remove comment at index
+        updatedComments[postIndex].splice(commentIndex, 1);
         return updatedComments;
       });
     }
@@ -146,7 +133,6 @@ const Home = () => {
     <div className="home-container">
       <h1 className="page-title">Welcome to My Daily Blogs</h1>
 
-      {/* Search Bar */}
       <div className="search-container">
         <input
           type="text"
@@ -156,7 +142,6 @@ const Home = () => {
         />
       </div>
 
-      {/* Create Post Button - Show only for admin */}
       {role === "admin" && (
         <div className="create-post-button-container">
           <button
@@ -168,7 +153,6 @@ const Home = () => {
         </div>
       )}
 
-      {/* Create Post Modal */}
       {showCreatePost && (
         <div className="modal-overlay">
           <div className="create-post-modal">
@@ -203,7 +187,6 @@ const Home = () => {
         </div>
       )}
 
-      {/* Posts Section */}
       <div className="posts-container">
         {posts
           .filter(
@@ -227,7 +210,6 @@ const Home = () => {
                 {expandedPost === index ? "Show Less" : "Read More..."}
               </span>
 
-              {/* Conditionally render Edit and Delete buttons in the posts list */}
               {role === "admin" && (
                 <div className="post-actions">
                   <button

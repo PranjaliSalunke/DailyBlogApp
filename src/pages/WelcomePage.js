@@ -6,17 +6,15 @@ const WelcomePage = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [role, setRole] = useState("user");
-  const [isSubmitted, setIsSubmitted] = useState(false); // State to track form submission
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ name, username, role });
 
-    // Mark the form as submitted
     setIsSubmitted(true);
 
-    // Redirect to Home Page after a short delay
     setTimeout(() => {
       navigate("/home", { state: { name, username, role } });
     }, 1500); // Redirect after 1.5 seconds
@@ -26,7 +24,6 @@ const WelcomePage = () => {
     <div className="welcome-container">
       <h1>Welcome to the Blog App</h1>
 
-      {/* If form is submitted, display the personalized message */}
       {isSubmitted ? (
         <h2>Hey {name}, welcome to the world of blogs!</h2>
       ) : (
