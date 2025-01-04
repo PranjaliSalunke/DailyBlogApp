@@ -1,0 +1,338 @@
+/* General Body Styling */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: url('../assets/BgImage.jpg') no-repeat center center fixed; /* Add your image path */
+  background-size: cover; /* Make sure the image covers the entire screen */
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh; /* Ensures the background covers the full viewport height */
+  padding: 20px 0;
+  position: relative;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Ensure the background doesn't shift */
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Keeps the background behind the content */
+}
+
+/* Title */
+.page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #0072ff;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Search Bar Section */
+.search-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.search-container input {
+  width: 60%;
+  padding: 12px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-container input:focus {
+  border-color: #0072ff;
+  box-shadow: 0 4px 8px rgba(0, 114, 255, 0.2);
+  outline: none;
+}
+
+/* Posts Container */
+.posts-container {
+  display: flex;
+  flex-direction: column; /* Stack posts vertically */
+  gap: 20px; /* Space between posts */
+  width: 100%; /* Take up full width */
+  margin: 0 auto; /* Center the container */
+}
+
+/* Post Card */
+.post-card {
+  background-color: rgba(249, 249, 249, 0.8); /* Light background with opacity */
+  border: 1px solid rgba(221, 221, 221, 0.5); /* Light border with opacity */
+  border-radius: 10px;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-width: 100%; /* Ensure the post does not exceed the container’s width */
+  width: 90%; /* Adjust the width of the posts */
+  margin: 0 auto; /* Center the post cards */
+  position: relative; /* So edit and delete options can be placed absolutely */
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Post Header */
+.post-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.post-card .author {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+/* Post Content */
+.post-card .content {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.read-more-button:hover {
+  color: #0056d6; /* Darker shade on hover */
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Scrollbar Styling for Posts Grid */
+.posts-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.posts-container::-webkit-scrollbar-thumb {
+  background-color: #0072ff;
+  border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .search-container input {
+    width: 100%;
+  }
+
+  .post-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .post-card .content {
+    font-size: 0.9rem;
+  }
+}
+
+/* Comment Section */
+.comment-section {
+  margin-top: 5px; /* Add some space between post content and comments */
+  padding-top: 10px;
+  border-top: 1px solid #ddd; /* Add a border to separate from the post */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align the comment input and button */
+}
+
+.comment-section h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: left; /* Center the title */
+}
+
+/* Comments List */
+.comments-list {
+  margin-bottom: 10px; /* Space between comments */
+  width: 100%;
+}
+
+/* Comment Input Styling */
+.comment-input {
+  width: 80%; /* Set width to 80% of the post */
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  resize: none; /* Prevent resizing of the comment textarea */
+  margin-bottom: 10px; /* Space below input */
+}
+
+/* Focus Styling for Comment Input */
+.comment-input:focus {
+  border-color: #0072ff;
+  box-shadow: 0 4px 8px rgba(0, 114, 255, 0.2);
+  outline: none;
+}
+
+/* Submit Button Styling */
+.comment-submit {
+  background-color: #0072ff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: 80%; /* Set width to 80% of the post */
+}
+
+.comment-submit:hover {
+  background-color: #0056d6; /* Darker shade on hover */
+}
+
+/* Styling for Create Post Button */
+.create-post-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.create-post-button {
+  background-color: #0072ff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.create-post-button:hover {
+  background-color: #0056d6;
+}
+
+/* Modal for Post Creation */
+.create-post-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  width: 400px;
+}
+
+.create-post-modal input,
+.create-post-modal textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.create-post-modal button {
+  background-color: #0072ff;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.create-post-modal button:hover {
+  background-color: #0056d6;
+}
+
+/* Modal Close Button */
+.create-post-modal .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.post-card .post-actions {
+  position: absolute;
+  top: 10px; /* Distance from the top of the post */
+  right: 10px; /* Distance from the right side of the post */
+  display: flex;
+  gap: 10px; /* Space between the options */
+}
+
+/* Edit and Delete Buttons */
+.post-card .post-actions button {
+  background-color: transparent;
+  border: none;
+  color: #0072ff; /* Color for buttons */
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.post-card .post-actions button:hover {
+  color: #0056d6; /* Darker shade on hover */
+}
+
+/* Styling for Comment User Name */
+.comment-username {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Commenter Name Input Styling */
+.commenter-name-input {
+  width: 80%; /* Adjust width to fit the desired size */
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 10px; /* Space below input */
+}
+
+/* Focus Styling for Commenter Name Input */
+.commenter-name-input:focus {
+  border-color: #0072ff;
+  box-shadow: 0 4px 8px rgba(0, 114, 255, 0.2);
+  outline: none;
+}
+
+/* Delete comment button styles */
+.delete-comment-button {
+  color: red; /* Red color to indicate deletion */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+  font-weight: bold; /* Make the text bold */
+  font-size: 14px; /* Adjust font size */
+  margin-left: 10px; /* Space between the comment and delete button */
+  transition: color 0.3s ease; /* Add a smooth color transition effect */
+}
+
+.delete-comment-button:hover {
+  color: darkred; /* Darken the red color on hover */
+}
+
+.delete-comment-button:active {
+  color: crimson; /* Color changes when the button is clicked */
+}
